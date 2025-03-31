@@ -1,5 +1,5 @@
 import 'package:expense_tracker_app/models/expense_model.dart';
-import 'package:expense_tracker_app/models/expenses_list.dart';
+import 'package:expense_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:flutter/material.dart';
 
 class Expenses extends StatefulWidget {
@@ -23,7 +23,7 @@ class _ExpensesState extends State<Expenses> {
       title: 'Cinema',
       amount: 15.00,
       date: DateTime.now(),
-      category: Category.work,
+      category: Category.leisure,
     ),
   ];
 
@@ -33,6 +33,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text('The Chart'),
+          //Use Expanded to show Columns inside Columns
           Expanded(child: ExpensesList(expensesList: _registeredExpenses)),
         ],
       ),
