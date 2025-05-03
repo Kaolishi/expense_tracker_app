@@ -1,3 +1,4 @@
+
 import 'package:expense_tracker_app/models/expense_model.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/new_expense.dart';
@@ -30,11 +31,54 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     //This shows can overlay
-    showModalBottomSheet(context: context, builder: (ctx) => NewExpense());
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+    );
+  }
+
+  void _addExpense(ExpenseModel expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(ExpenseModel expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Expense Deleted'),
+        duration: const Duration(seconds: 3),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+      child: Text('No expenses found. Start adding some!'),
+    );
+
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expensesList: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('My Expense Tracker'),
@@ -46,7 +90,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('The Chart'),
           //Use Expanded to show Columns inside Columns
-          Expanded(child: ExpensesList(expensesList: _registeredExpenses)),
+          Expanded(child: mainContent),
         ],
       ),
     );

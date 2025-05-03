@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd();
 
+// Generates unique IDs
 const uuid = Uuid();
 
 enum Category {

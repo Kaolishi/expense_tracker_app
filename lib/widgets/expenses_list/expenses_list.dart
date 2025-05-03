@@ -3,8 +3,13 @@ import 'package:expense_tracker_app/widgets/expenses_list/expenses_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesList extends StatelessWidget {
-  const ExpensesList({super.key, required this.expensesList});
+  const ExpensesList({
+    super.key,
+    required this.expensesList,
+    required this.onRemoveExpense,
+  });
 
+  final void Function(ExpenseModel expense) onRemoveExpense;
   final List<ExpenseModel> expensesList;
 
   @override
@@ -14,7 +19,16 @@ class ExpensesList extends StatelessWidget {
     return ListView.builder(
       itemCount: expensesList.length,
       itemBuilder:
-          (context, index) => ExpensesItem(expense: expensesList[index]),
+          (context, index) => Dismissible(
+            // A key is a unique indentifier for an object
+            // This case the key is used to make sure the correct object is deleted
+            // ValueKey is used to assign an value to the key
+            key: ValueKey(expensesList[index]),
+            onDismissed: (direction) {
+              onRemoveExpense(expensesList[index]);
+            },
+            child: ExpensesItem(expense: expensesList[index]),
+          ),
     );
   }
 }
