@@ -11,10 +11,12 @@ class ExpensesItem extends StatelessWidget {
     //Card() creates stuff into a card shape
     return Card(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(expense.title),
+            // The theme of the text widget can be acessed by calling the theme class
+            Text(expense.title, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 4),
             Row(
               children: [

@@ -1,5 +1,5 @@
-
 import 'package:expense_tracker_app/models/expense_model.dart';
+import 'package:expense_tracker_app/widgets/chart/chart.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +68,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
+    Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some!'),
     );
 
@@ -81,14 +81,17 @@ class _ExpensesState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Expense Tracker'),
+        title: const Text('My Expense Tracker'),
         actions: [
-          IconButton(onPressed: _openAddExpenseOverlay, icon: Icon(Icons.add)),
+          IconButton(
+            onPressed: _openAddExpenseOverlay,
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Column(
         children: [
-          const Text('The Chart'),
+          Chart(expenses: _registeredExpenses),
           //Use Expanded to show Columns inside Columns
           Expanded(child: mainContent),
         ],

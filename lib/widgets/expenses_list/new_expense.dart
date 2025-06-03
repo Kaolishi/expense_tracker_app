@@ -105,7 +105,7 @@ class _NewExpenseState extends State<NewExpense> {
                     prefixText: '\$ ',
                     label: Text('Amount'),
                   ),
-                  keyboardType: TextInputType.numberWithOptions(),
+                  keyboardType: const TextInputType.numberWithOptions(),
                 ),
               ),
               const SizedBox(width: 16),
@@ -122,14 +122,14 @@ class _NewExpenseState extends State<NewExpense> {
                     // Exclamation mark means it's never null
                     IconButton(
                       onPressed: _presentDatePicker,
-                      icon: Icon(Icons.calendar_month),
+                      icon: const Icon(Icons.calendar_month),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
               DropdownButton(

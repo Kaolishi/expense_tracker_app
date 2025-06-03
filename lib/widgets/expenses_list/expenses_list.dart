@@ -24,6 +24,10 @@ class ExpensesList extends StatelessWidget {
             // This case the key is used to make sure the correct object is deleted
             // ValueKey is used to assign an value to the key
             key: ValueKey(expensesList[index]),
+            background: Container(
+              color: Theme.of(context).colorScheme.error,
+              margin: Theme.of(context).cardTheme.margin,
+            ),
             onDismissed: (direction) {
               onRemoveExpense(expensesList[index]);
             },
